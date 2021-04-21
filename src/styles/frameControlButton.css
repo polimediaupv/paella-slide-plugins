@@ -1,3 +1,29 @@
+
+.frame-control-plugin-container {
+    display: flex;
+
+}
+
+.frame-control-plugin-container .btn-left {
+    flex-grow: 0;
+}
+
+.frame-control-plugin-container .image-list {
+    flex-grow: 2;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.frame-control-plugin-container .btn-right {
+    flex-grow: 0;
+}
+
+.frame-control-plugin-container .image-list a {
+    margin: 2px;
+}
+
 .frame-control-plugin-container .image-list img {
     pointer-events: none;
 }

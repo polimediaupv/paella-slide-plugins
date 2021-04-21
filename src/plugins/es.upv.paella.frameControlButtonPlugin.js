@@ -4,6 +4,7 @@ import {
 } from 'paella-core';
 
 import photoIcon from '../icons/photo.svg';
+import '../styles/FrameControlButton.css';
 
 export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
     get popUpType() { return "timeline"; }
@@ -14,6 +15,15 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
         this.frames.sort((a,b) => {
             return a.time - b.time;
         });
+        // TODO: remove this
+        this.frames = [
+            ...this.frames, 
+            ...this.frames, 
+            ...this.frames,
+            ...this.frames,
+            ...this.frames,
+            ...this.frames
+        ];
         return enabled && this.frames
     }
 
