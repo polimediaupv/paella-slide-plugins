@@ -17,12 +17,6 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
         this.frames.sort((a,b) => {
             return a.time - b.time;
         });
-        // TODO: remove this
-        this.frames = [
-            ...this.frames, 
-            ...this.frames, 
-            ...this.frames
-        ];
         return enabled && this.frames
     }
 
