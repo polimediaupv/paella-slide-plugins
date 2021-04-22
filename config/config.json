@@ -48,7 +48,8 @@
         "es.upv.paella.frameControlButtonPlugin": {
             "enabled": true,
             "side": "right",
-            "order": 2
+            "order": 2,
+            "targetContent": "presentation"
         }
     }
 }
