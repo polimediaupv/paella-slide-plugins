@@ -38,11 +38,11 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
         });
 
         const displacement = () => imageContainer.offsetWidth * 20 / 100;
-        leftButton.addEventListener('click', evt => {
+        leftButton.addEventListener('click', () => {
             imageContainer.scrollLeft -= displacement();
         });
 
-        rightButton.addEventListener('click', evt => {
+        rightButton.addEventListener('click', () => {
             imageContainer.scrollLeft += displacement();
         });
 
