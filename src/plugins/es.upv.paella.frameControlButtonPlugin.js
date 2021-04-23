@@ -6,7 +6,7 @@ import {
 import photoIcon from '../icons/photo.svg';
 import arrowLeftIcon from '../icons/arrow-left.svg';
 import arrowRightIcon from '../icons/arrow-right.svg';
-import '../styles/FrameControlButton.css';
+import '../styles/frameControlButton.css';
 
 export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
     get popUpType() { return "timeline"; }
