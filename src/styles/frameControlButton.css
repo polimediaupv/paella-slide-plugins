@@ -53,6 +53,7 @@
 
 .frame-control-plugin-container .image-list a {
     opacity: 0.5;
+    overflow: hidden;
 }
 
 .frame-control-plugin-container .image-list a:hover {
@@ -72,4 +73,14 @@
 
 .frame-control-plugin-container .button-icon svg {
     fill: white;
+}
+
+.frame-control-plugin-container .image-list a.selected {
+    border: 2px solid red;
+    opacity: 0.8;
+}
+
+.frame-control-plugin-container .image-list a.selected:hover {
+    border: 2px solid red;
+    opacity: 1;
 }

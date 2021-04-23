@@ -1,12 +1,19 @@
 import { 
     createElementWithHtmlText,
-    PopUpButtonPlugin 
+    PopUpButtonPlugin,
+    Events,
+    bindEvent
 } from 'paella-core';
 
 import photoIcon from '../icons/photo.svg';
 import arrowLeftIcon from '../icons/arrow-left.svg';
 import arrowRightIcon from '../icons/arrow-right.svg';
 import '../styles/frameControlButton.css';
+
+function setSelected(item, allItems) {
+    allItems?.forEach(e => e.classList.remove('selected'));
+    item.classList.add('selected');
+}
 
 export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
     get popUpType() { return "timeline"; }
@@ -26,15 +33,17 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
         const leftButton = createElementWithHtmlText(`<button class="btn-left"><i class="button-icon">${ arrowLeftIcon }</i></button>`,content);
         const rightButton = createElementWithHtmlText(`<button class="btn-right"><i class="button-icon">${ arrowRightIcon }</i></button>`,content);
 
-        this.frames.forEach(frameData => {
+        this.frameElements = this.frames.map(frameData => {
             const frameElement = createElementWithHtmlText(`
-                <a><img src="${ frameData.thumb }" alt="${ frameData.id }"/></a>
+            <a id="frame_${frameData.id}"><img src="${ frameData.thumb }" alt="${ frameData.id }"/></a>
             `, imageContainer);
             frameElement.__data = frameData;
             frameElement.addEventListener("click", async evt => {
                 const { time } = evt.currentTarget.__data;
                 await this.player.videoContainer.setCurrentTime(time);
+                setSelected(evt.currentTarget, this.frameElements);
             });
+            return frameElement;
         });
 
         const displacement = () => imageContainer.offsetWidth * 20 / 100;
@@ -51,5 +60,21 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
 
     async load() {
         this.icon = photoIcon;
+        const timeOffset = 3;
+
+        bindEvent(this.player, Events.TIMEUPDATE, async params => {
+            // this.frameElements is not available until the content popup has been opened.
+            let currentElement = this.frameElements && this.frameElements[0];
+            this.frameElements?.some(elem => {
+                if (elem.__data.time>Math.floor(params.currentTime + timeOffset)) {
+                    return true;
+                }
+                currentElement = elem;
+            });
+
+            if (currentElement) {
+                setSelected(currentElement, this.frameElements);
+            }
+        });
     }
 }
