@@ -8,11 +8,11 @@ A set of plugins to handle slides for Paella Player
 
 ```javascript
 ...
-import getBasicPluginsContext from 'paella-basic-plugins';
+import getSlidePluginsContext from 'paella-slide-plugins';
 
 let paella = new Paella('player-container', {
     customPluginContext: [
-        getBasicPluginsContext()
+        getSlidePluginsContext()
     ]
 });
 ...
@@ -24,7 +24,7 @@ let paella = new Paella('player-container', {
 {
     "plugins": {
         ...
-        "es.upv.paella.fullscreenButton": {
+        "es.upv.paella.frameControlButtonPlugin": {
             "enabled": true,
             "side": "right",
             "order": 0
