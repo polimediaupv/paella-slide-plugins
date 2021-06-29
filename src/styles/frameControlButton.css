@@ -41,6 +41,7 @@
 
 .frame-control-plugin-container .image-list a {
     margin: 3px;
+    min-width: 160px;
 }
 
 .frame-control-plugin-container .image-list a:last-child {
