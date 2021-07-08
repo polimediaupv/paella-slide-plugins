@@ -71,6 +71,10 @@
             "side": "right",
             "order": 2,
             "targetContent": "presentation"
+        },
+
+        "es.upv.paella.defaultShortcuts": {
+            "enabled": true
         }
     }
 }
