@@ -21,10 +21,10 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
     async isEnabled() {
         const enabled = await super.isEnabled();
         this.frames = this.player.videoManifest?.frameList;
-        this.frames.sort((a,b) => {
+        this.frames?.sort((a,b) => {
             return a.time - b.time;
         });
-        return enabled && this.frames
+        return enabled && this.frames?.length;
     }
 
     async getContent() {
