@@ -71,6 +71,18 @@
             "side": "right",
             "order": 2,
             "targetContent": "presentation"
+        },
+
+        "es.upv.paella.defaultShortcuts": {
+            "enabled": true
+        },
+
+        "es.upv.paella.arrowSlidesNavigator": {
+            "enabled": true,
+            "target": [
+                "presentation",
+                "presenter"
+            ]
         }
     }
 }
