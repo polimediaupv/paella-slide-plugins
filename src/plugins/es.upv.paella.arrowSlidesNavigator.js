@@ -5,31 +5,40 @@ import arrowLeft from '../icons/arrow-left.svg';
 import arrowRight from '../icons/arrow-right.svg';
 
 async function next() {
-    const duration = Math.trunc(await this.player.videoContainer.duration());
+    const { videoContainer } = this.player;
+    const initOffset = videoContainer.isTrimEnabled ? videoContainer.trimStart : 0;
+    const duration = Math.trunc(await videoContainer.duration());
     const current = Math.trunc(await this.player.videoContainer.currentTime());
-    const min = this.player.videoContainer.isTrimEnabled ? this.player.videoContainer.trimStart : 0;
-    const max = this.player.videoContainer.isTrimEnabled ? this.player.videoContainer.trimEnd : duration;
     let frame = null;
     this.frames.some(f => {
-        if (f.time>current) {
+        const trimmedTime = f.time - initOffset;
+        if (trimmedTime>current && trimmedTime<duration) {
             frame = f;
         }
         return frame !== null;
     });
 
-    if (frame.time<max) {
-        console.log(frame);
-        await this.player.videoContainer.setCurrentTime(frame.time);
+    if (frame) {
+        await this.player.videoContainer.setCurrentTime(frame.time - initOffset);
     }
 }
 
 async function prev() {
-    const duration = await this.player.videoContainer.duration();
-    const min = this.player.videoContainer.isTrimEnabled ? this.player.videoContainer.trimStart : 0;
-    const max = this.player.videoContainer.isTrimEnabled ? this.player.videoContainer.trimEnd : duration;
-    this.frames.some(frame => {
-        console.log(frame);
-    })
+    const { videoContainer } = this.player;
+    const initOffset = videoContainer.isTrimEnabled ? videoContainer.trimStart : 0;
+    const current = Math.trunc(await videoContainer.currentTime()) + initOffset;
+    let frame = null;
+    this.frames.some(f => {
+        if (f.time<current) {
+            frame = f;
+        }
+        return f.time>=current;
+    });
+
+    if (frame) {
+        const seekTime = frame.time<initOffset ? initOffset : frame.time;
+        await this.player.videoContainer.setCurrentTime(seekTime - initOffset);
+    }
 }
 
 export default class ArrowSlidesNavigatorPlugin extends EventLogPlugin {
