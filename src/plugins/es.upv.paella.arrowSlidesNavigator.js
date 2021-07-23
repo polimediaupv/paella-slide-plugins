@@ -6,13 +6,13 @@ import arrowRight from '../icons/arrow-right.svg';
 
 async function next() {
     const { videoContainer } = this.player;
+    // Convert all to untrimmed time
     const initOffset = videoContainer.isTrimEnabled ? videoContainer.trimStart : 0;
-    const duration = Math.trunc(await videoContainer.duration());
-    const current = Math.trunc(await this.player.videoContainer.currentTime());
+    const max = initOffset + Math.trunc(await videoContainer.duration());
+    const current = initOffset + Math.trunc(await videoContainer.currentTime());
     let frame = null;
     this.frames.some(f => {
-        const trimmedTime = f.time - initOffset;
-        if (trimmedTime>current && trimmedTime<duration) {
+        if (f.time>current && f.time<max) {
             frame = f;
         }
         return frame !== null;
