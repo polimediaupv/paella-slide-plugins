@@ -32,19 +32,29 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
         const imageContainer = createElementWithHtmlText('<div class="image-list"></div>',content);
         const leftButton = createElementWithHtmlText(`<button class="btn-left"><i class="button-icon">${ arrowLeftIcon }</i></button>`,content);
         const rightButton = createElementWithHtmlText(`<button class="btn-right"><i class="button-icon">${ arrowRightIcon }</i></button>`,content);
+        const { videoContainer } = this.player;
+        const duration = await videoContainer.duration();
 
-        this.frameElements = this.frames.map(frameData => {
-            const frameElement = createElementWithHtmlText(`
-            <a id="frame_${frameData.id}"><img src="${ frameData.thumb }" alt="${ frameData.id }"/></a>
-            `, imageContainer);
-            frameElement.__data = frameData;
-            frameElement.addEventListener("click", async evt => {
-                const { time } = evt.currentTarget.__data;
-                await this.player.videoContainer.setCurrentTime(time);
-                setSelected(evt.currentTarget, this.frameElements);
+        const start = videoContainer.isTrimEnabled ? videoContainer.trimStart : 0;
+        const end = videoContainer.isTrimEnabled ? videoContainer.trimEnd : duration;
+
+        this.frameElements = this.frames
+            .filter((frameData,i) => {
+                const nextFrame = this.frames[i + 1];
+                return (nextFrame?.time>=start || frameData.time>=start) && frameData.time<=end;
+            })
+            .map(frameData => {    
+                const frameElement = createElementWithHtmlText(`
+                <a id="frame_${frameData.id}"><img src="${ frameData.thumb }" alt="${ frameData.id }"/></a>
+                `, imageContainer);
+                frameElement.__data = frameData;
+                frameElement.addEventListener("click", async evt => {
+                    const time = evt.currentTarget.__data.time - start;
+                    await this.player.videoContainer.setCurrentTime(time>=0 ? time : 0);
+                    setSelected(evt.currentTarget, this.frameElements);
+                });
+                return frameElement;
             });
-            return frameElement;
-        });
 
         const displacement = () => imageContainer.offsetWidth * 20 / 100;
         leftButton.addEventListener('click', () => {
@@ -63,10 +73,11 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
         const timeOffset = 3;
 
         bindEvent(this.player, Events.TIMEUPDATE, async params => {
+            const start = this.player.videoContainer.isTrimEnabled ? this.player.videoContainer.trimStart : 0;
             // this.frameElements is not available until the content popup has been opened.
             let currentElement = this.frameElements && this.frameElements[0];
             this.frameElements?.some(elem => {
-                if (elem.__data.time>Math.floor(params.currentTime + timeOffset)) {
+                if (elem.__data.time>Math.floor(params.currentTime + start + timeOffset)) {
                     return true;
                 }
                 currentElement = elem;
@@ -75,6 +86,10 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
             if (currentElement) {
                 setSelected(currentElement, this.frameElements);
             }
+        });
+
+        bindEvent(this.player, Events.TRIMMING_CHANGED, (evt) => {
+            this.refreshContent = true;
         });
     }
 }
