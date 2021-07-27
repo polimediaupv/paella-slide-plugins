@@ -70,15 +70,20 @@ export default class ArrowSlidesNavigatorPlugin extends EventLogPlugin {
             <button class="button-prev"><i>${arrowLeft}</i></button>
             `, mainContainer);
             leftButton.addEventListener("click", async evt => {
-                await prev.apply(this);
                 evt.stopPropagation();
+                await prev.apply(this);
             });
 
             const rightButton = createElementWithHtmlText(`
             <button class="button-next"><i>${arrowRight}</i></button>
             `, mainContainer);
             rightButton.addEventListener("click", async evt => {
+                evt.stopPropagation();
                 await next.apply(this);
+            });
+
+            // Prevent event propagation from the async event in prev and next buttons
+            mainContainer.addEventListener("click", evt => {
                 evt.stopPropagation();
             });
         }
