@@ -16,6 +16,22 @@ function setSelected(item, allItems) {
 }
 
 export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
+    getAriaLabel() {
+        return "Show video slides";
+    }
+
+    getDescription() {
+        return this.getAriaLabel();
+    }
+
+	async getDictionaries() {
+		return {
+			es: {
+				"Show video slides": "Mostrar diapositivas del vídeo"
+			}
+		}
+	}
+
     get popUpType() { return "timeline"; }
 
     async isEnabled() {
