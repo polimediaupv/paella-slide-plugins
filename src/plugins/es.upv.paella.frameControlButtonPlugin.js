@@ -60,8 +60,9 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
                 return (nextFrame?.time>=start || frameData.time>=start) && frameData.time<=end;
             })
             .map(frameData => {    
+                const description = `${ this.player.translate(`go to`) } ${ frameData.id }`;
                 const frameElement = createElementWithHtmlText(`
-                <a id="frame_${frameData.id}"><img src="${ frameData.thumb }" alt="${ frameData.id }"/></a>
+                <button id="frame_${frameData.id}" aria-label="${ description }" title="${ description }"><img src="${ frameData.thumb }" alt="${ frameData.id }"/></button>
                 `, imageContainer);
                 frameElement.__data = frameData;
                 frameElement.addEventListener("click", async evt => {
@@ -81,6 +82,7 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
             imageContainer.scrollLeft += displacement();
         });
 
+        setTimeout(() => this.frameElements[0] && this.frameElements[0].focus(), 50);
         return content;
     }
 
@@ -107,5 +109,13 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
         bindEvent(this.player, Events.TRIMMING_CHANGED, (evt) => {
             this.refreshContent = true;
         });
+    }
+
+    async getDictionaries() {
+        return {
+            es: {
+                "go to": "ir a"
+            }
+        }
     }
 }
