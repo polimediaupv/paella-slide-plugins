@@ -24,14 +24,6 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
         return this.getAriaLabel();
     }
 
-	async getDictionaries() {
-		return {
-			es: {
-				"Show video slides": "Mostrar diapositivas del vídeo"
-			}
-		}
-	}
-
     get popUpType() { return "timeline"; }
 
     async isEnabled() {
@@ -112,10 +104,11 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
     }
 
     async getDictionaries() {
-        return {
-            es: {
+		return {
+			es: {
+				"Show video slides": "Mostrar diapositivas del vídeo",
                 "go to": "ir a"
-            }
-        }
-    }
+			}
+		}
+	}
 }
