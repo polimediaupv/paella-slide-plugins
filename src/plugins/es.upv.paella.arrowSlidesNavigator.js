@@ -81,11 +81,6 @@ export default class ArrowSlidesNavigatorPlugin extends EventLogPlugin {
                 evt.stopPropagation();
                 await next.apply(this);
             });
-
-            // Prevent event propagation from the async event in prev and next buttons
-            mainContainer.addEventListener("click", evt => {
-                evt.stopPropagation();
-            });
         }
         else {
             console.warn("No matching stream content or frames found for arrow slides navigator plugin");
