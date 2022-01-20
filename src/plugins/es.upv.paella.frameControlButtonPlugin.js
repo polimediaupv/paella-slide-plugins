@@ -36,6 +36,7 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
     }
 
     async getContent() {
+        const previewContent = this.config.targetContent || "presentation";
         const content = createElementWithHtmlText('<div class="frame-control-plugin-container"></div>');
         const imageContainer = createElementWithHtmlText('<div class="image-list"></div>',content);
         const leftButton = createElementWithHtmlText(`<button class="btn-left"><i class="button-icon">${ arrowLeftIcon }</i></button>`,content);
@@ -62,6 +63,22 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
                     await this.player.videoContainer.setCurrentTime(time>=0 ? time : 0);
                     setSelected(evt.currentTarget, this.frameElements);
                 });
+                frameElement.addEventListener("mouseover", async evt => {
+                    if (this._currentFrame) {
+                        this.player.videoContainer.removeChild(this._currentFrame);
+                    }
+                    const preview = document.createElement("img");
+                    preview.className = "frame-control-preview";
+                    preview.src = frameData.url;
+                    const rect = this.player.videoContainer.getVideoRect(previewContent);
+                    this._currentFrame = this.player.videoContainer.appendChild(preview, rect);
+                });
+                frameElement.addEventListener("mouseout", async evt => {
+                    if (this._currentFrame) {
+                        this.player.videoContainer.removeChild(this._currentFrame);
+                        this._currentFrame = null;
+                    }
+                })
                 return frameElement;
             });
 
