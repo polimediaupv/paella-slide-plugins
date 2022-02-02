@@ -2,7 +2,8 @@ import {
     createElementWithHtmlText,
     PopUpButtonPlugin,
     Events,
-    bindEvent
+    bindEvent,
+    utils
 } from 'paella-core';
 
 import photoIcon from '../icons/photo.svg';
@@ -47,13 +48,18 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
         const start = videoContainer.isTrimEnabled ? videoContainer.trimStart : 0;
         const end = videoContainer.isTrimEnabled ? videoContainer.trimEnd : duration;
 
+        const getTime = (t) => {
+            t = this.player.videoContainer.isTrimEnabled ? t - this.player.videoContainer.trimStart : t;
+            return utils.secondsToTime(t < 0 ? 0 : t);
+        }
+
         this.frameElements = this.frames
             .filter((frameData,i) => {
                 const nextFrame = this.frames[i + 1];
                 return (nextFrame?.time>=start || frameData.time>=start) && frameData.time<=end;
             })
             .map(frameData => {    
-                const description = `${ this.player.translate(`go to`) } ${ frameData.id }`;
+                const description = `${ this.player.translate(`go to`) } ${ getTime(frameData.time) }`;
                 const frameElement = createElementWithHtmlText(`
                 <button id="frame_${frameData.id}" aria-label="${ description }" title="${ description }"><img src="${ frameData.thumb }" alt="${ frameData.id }"/></button>
                 `, imageContainer);
