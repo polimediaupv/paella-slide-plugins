@@ -52,6 +52,8 @@ When the user hovers the mouse cursor over the slide thumbnails, the slide is di
 }
 ```
 
+**Exported as** `FrameControlButtonPlugin`.
+
 ### Arrow slide navigator
 
 It allows you to add forward and backward navigation controls over one of the videos, allowing you to jump to the next and previous slide's time snapshot, respectively.
@@ -70,3 +72,5 @@ The video where the arrow buttons are placed is the one whose `content` attribut
     ...
 }
 ```
+
+**Exported as** `ArrowslidesPlugin`.
