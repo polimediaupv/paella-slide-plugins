@@ -54,6 +54,14 @@ When the user hovers the mouse cursor over the slide thumbnails, the slide is di
 
 **Exported as** `FrameControlButtonPlugin`.
 
+**Icon customization data:**
+
+- Plugin identifier: `es.upv.paella.frameControlButtonPlugin`
+- Icon names:
+    * `photoIcon`: icon in the button bar.
+    * `arrowLeftIcon`: arrow left, in slides panel.
+    * `arrowRightIcon`: arrow right, in slides panel.
+
 ### Arrow slide navigator
 
 It allows you to add forward and backward navigation controls over one of the videos, allowing you to jump to the next and previous slide's time snapshot, respectively.
@@ -74,3 +82,9 @@ The video where the arrow buttons are placed is the one whose `content` attribut
 ```
 
 **Exported as** `ArrowslidesPlugin`.
+**Icon customization data:**
+
+- Plugin identifier: `es.upv.paella.frameControlButtonPlugin`
+- Icon names:
+    * `arrowLeftIcon`: arrow left, in slides panel.
+    * `arrowRightIcon`: arrow right, in slides panel.

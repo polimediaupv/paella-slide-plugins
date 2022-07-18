@@ -1,6 +1,8 @@
 import { Paella } from 'paella-core';
 import getSlidePluginsContext from './index';
 
+import slideIcon from './icons/slidesIcon.svg';
+
 const initParams = {
 	customPluginContext: [
 		getSlidePluginsContext()
@@ -10,5 +12,7 @@ const initParams = {
 let paella = new Paella('player-container', initParams);
 
 paella.loadManifest()
-	.then(() => console.log("done"))
+	.then(() => {
+		paella.addCustomPluginIcon("es.upv.paella.frameControlButtonPlugin","photoIcon",slideIcon);
+	})
 	.catch(e => console.error(e));

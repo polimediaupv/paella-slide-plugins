@@ -6,9 +6,9 @@ import {
     utils
 } from 'paella-core';
 
-import photoIcon from '../icons/photo.svg';
-import arrowLeftIcon from '../icons/arrow-left.svg';
-import arrowRightIcon from '../icons/arrow-right.svg';
+import defaultPhotoIcon from '../icons/photo.svg';
+import defaultArrowLeftIcon from '../icons/arrow-left.svg';
+import defaultArrowRightIcon from '../icons/arrow-right.svg';
 import '../styles/frameControlButton.css';
 
 function setSelected(item, allItems) {
@@ -37,6 +37,9 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
     }
 
     async getContent() {
+        const arrowLeftIcon = this.player.getCustomPluginIcon(this.name, "arrowLeftIcon") || defaultArrowLeftIcon;
+        const arrowRightIcon = this.player.getCustomPluginIcon(this.name, "arrowRightIcon") || defaultArrowRightIcon;
+
         const previewContent = this.config.targetContent || "presentation";
         const content = createElementWithHtmlText('<div class="frame-control-plugin-container"></div>');
         const imageContainer = createElementWithHtmlText('<div class="image-list"></div>',content);
@@ -102,7 +105,7 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
     }
 
     async load() {
-        this.icon = photoIcon;
+        this.icon = this.player.getCustomPluginIcon(this.name, "photoIcon") || defaultPhotoIcon;
         const timeOffset = 3;
 
         bindEvent(this.player, Events.TIMEUPDATE, async params => {
