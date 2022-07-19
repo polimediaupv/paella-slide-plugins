@@ -88,3 +88,25 @@ The video where the arrow buttons are placed is the one whose `content` attribut
 - Icon names:
     * `arrowLeftIcon`: arrow left, in slides panel.
     * `arrowRightIcon`: arrow right, in slides panel.
+
+
+### Slide Map Progress Bar Plugin
+
+Displays a mark in the progress indicator where there is a slide. It is possible to customize the color of the marks when the mouse is over the bar or outside the bar, and the width of the marks. You can also customize whether the marks are drawn above the progress indicator or below it.
+
+```json
+{
+    "es.upv.paella.slideMapProgressBarPlugin": {
+        "enabled": true,
+        "markColor": {
+            "mouseOut": "#0A0A0A",
+            "mouseHover": "#A9A9A9"
+        },
+        "markWidth": 3,
+        "drawBackground": true
+    },
+    ...
+}
+```
+
+**Exported as** `SlideMapProgressBarPlugin`
