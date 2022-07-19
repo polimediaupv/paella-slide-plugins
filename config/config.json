@@ -83,6 +83,10 @@
                 "presentation",
                 "presenter"
             ]
+        },
+
+        "es.upv.paella.slideMapProgressBarPlugin": {
+            "enabled": true
         }
     }
 }
