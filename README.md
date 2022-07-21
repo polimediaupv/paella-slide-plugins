@@ -82,6 +82,7 @@ The video where the arrow buttons are placed is the one whose `content` attribut
 ```
 
 **Exported as** `ArrowslidesPlugin`.
+
 **Icon customization data:**
 
 - Plugin identifier: `es.upv.paella.frameControlButtonPlugin`
