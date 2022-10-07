@@ -111,3 +111,118 @@ Displays a mark in the progress indicator where there is a slide. It is possible
 ```
 
 **Exported as** `SlideMapProgressBarPlugin`
+
+### Next Slide Navigator Button
+
+This is a video canvas button that allows you to navigate to the next frame. It is intended to replace, together with `Previous Slide Navigator Button`, the `Arrow Slide Navigator` plugin, when we want to place these buttons in the button area of the video canvas. Therefore, it is not consistent to activate `Next Slide Navigator Button` and `Previous Slide Navigator Button` if `Arrow Slide Navigator` is also activated.
+
+
+```json
+{
+    "es.upv.paella.nextSlideNavigatorButton": {
+        "enabled": true,
+        "content": [
+            "presentation"
+        ]
+    },
+    ...
+}
+```
+
+**Exported as** `NextSlideNavigatorButtonPlugin`.
+
+**Icon customization data:**
+
+- Plugin identifier: `es.upv.paella.nextSlideNavigatorButton`
+- Icon names:
+    * `arrowLeftIcon`: arrow left, in slides panel.
+
+
+### Previous Slide Navigator Button
+
+This is a video canvas button that allows you to navigate to the previous frame. It is intended to replace, together with `Next Slide Navigator Button`, the `Arrow Slide Navigator` plugin, when we want to place these buttons in the button area of the video canvas. Therefore, it is not consistent to activate `Next Slide Navigator Button` and `Previous Slide Navigator Button` if `Arrow Slide Navigator` is also activated.
+
+
+```json
+{
+    "es.upv.paella.prevSlideNavigatorButton": {
+        "enabled": true,
+        "content": [
+            "presentation"
+        ]
+    },
+    ...
+}
+```
+
+**Exported as** `PrevSlideNavigatorButtonPlugin`.
+
+**Icon customization data:**
+
+- Plugin identifier: `es.upv.paella.prevSlideNavigatorButton`
+- Icon names:
+    * `arrowRightIcon`: arrow right, in slides panel.
+
+### Important note about Next and Previous slide navigation plugins
+
+Remember that to place the buttons in the correct order, the `side` and `order` parameters of the `NextSlideNavigationPlugin` and `PrevSlideNavigationPlugin` plugins are relevant. The position will imply that the button is placed using the `float: right` or `float: left` styles, and this influences the order in which the buttons appear. Likewise, the order determines which plugin will be loaded first. If the plugins are placed at the left side of the video canvas, the first button to be loaded must be "prevSlideNavigationButton", but the order must to be inverted if the buttons are placed at the right side.
+
+**Example: place the buttons at the left side of the video:**
+
+```json
+{
+    "plugins": {
+        ...
+
+        "es.upv.paella.nextSlideNavigatorButton": {
+            ...
+            "side": "left",
+            "order": 1
+        },
+
+        "es.upv.paella.prevSlideNavigatorButton": {
+            ...
+            "side": "left",
+            "order": 0
+        }
+    }
+}
+```
+
+**Example: place the buttons at the right side of the video:**
+
+```json
+{
+    "plugins": {
+        ...
+
+        "es.upv.paella.nextSlideNavigatorButton": {
+            ...
+            "side": "right",
+            "order": 0
+        },
+
+        "es.upv.paella.prevSlideNavigatorButton": {
+            ...
+            "side": "right",
+            "order": 1
+        }
+    }
+}
+```
+
+### Utilities
+
+This package also exports the following utility functions:
+
+**`await nextSlide(player)`:** Seek video to the next frame position. It receives the player as parameter.
+
+**`await previousSlide(player)`:** Seek video to the previous frame position. It receives the player as parameter.
+
+**`await checkSlides(player)`:** Checks if the current video contains navigable frames. It receives the player as parameter.
+
+**`await getFrames(player)`:** Returns the sorted list of frames of the current video, or an empty array if the video contains no frames. It receives the player as parameter.
+
+```js
+import { getFrames, nextSlide, checkSlide } from 'paella-basic-plugins';
+```

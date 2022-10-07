@@ -1,6 +1,6 @@
 import { Events, EventLogPlugin, createElementWithHtmlText } from 'paella-core';
 
-import { checkSlides, nextSlide, previousSlide } from '../js/SlideNavigation';
+import { checkSlides, getFrames, nextSlide, previousSlide } from '../js/SlideNavigation';
 
 import "../styles/arrowSlidesNavigator.css";
 import defaultArrowLeftIcon from '../icons/arrow-left.svg';
@@ -26,11 +26,7 @@ export default class ArrowSlidesNavigatorPlugin extends EventLogPlugin {
         });
 
         const stream = streams[target];
-
-        this.frames = this.player.videoManifest?.frameList;
-        this.frames?.sort((a,b) => {
-            return a.time - b.time;
-        });
+        this.frames = getFrames(this.player);
 
         if (stream && this.frames?.length) {
             const mainContainer = createElementWithHtmlText(`<div class="arrow-slides-navigator"></div>`, stream.canvas.userArea);
@@ -39,7 +35,7 @@ export default class ArrowSlidesNavigatorPlugin extends EventLogPlugin {
             `, mainContainer);
             leftButton.addEventListener("click", async evt => {
                 evt.stopPropagation();
-                await previousSlide(this.player, this.frames);
+                await previousSlide(this.player);
             });
 
             const rightButton = createElementWithHtmlText(`
@@ -47,7 +43,7 @@ export default class ArrowSlidesNavigatorPlugin extends EventLogPlugin {
             `, mainContainer);
             rightButton.addEventListener("click", async evt => {
                 evt.stopPropagation();
-                await nextSlide(this.player, this.frames);
+                await nextSlide(this.player);
             });
         }
         else {

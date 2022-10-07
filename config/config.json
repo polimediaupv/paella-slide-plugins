@@ -93,6 +93,24 @@
             },
             "markWidth": 3,
             "drawBackground": true
+        },
+
+        "es.upv.paella.nextSlideNavigatorButton": {
+            "enabled": true,
+            "content": [
+                "presentation"
+            ],
+            "side": "right",
+            "order": 0
+        },
+
+        "es.upv.paella.prevSlideNavigatorButton": {
+            "enabled": true,
+            "content": [
+                "presentation"
+            ],
+            "side": "right",
+            "order": 1
         }
     }
 }

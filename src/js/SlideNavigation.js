@@ -1,9 +1,18 @@
 
 export function checkSlides(player) {
-    // TODO: Check if there are available slides
+    return getFrames(player).length > 0;
 }
 
-export async function nextSlide(player, frames) {
+export function getFrames(player) {
+    const frames = player.videoManifest?.frameList || [];
+    frames.sort((a,b) => {
+        return a.time - b.time;
+    });
+    return frames;
+}
+
+export async function nextSlide(player) {
+    const frames = getFrames(player);
     const { videoContainer } = player;
     // Convert all to untrimmed time
     const initOffset = videoContainer.isTrimEnabled ? videoContainer.trimStart : 0;
@@ -22,7 +31,8 @@ export async function nextSlide(player, frames) {
     }
 }
 
-export async function previousSlide(player, frames) {
+export async function previousSlide(player) {
+    const frames = getFrames(player);
     const { videoContainer } = player;
     const initOffset = videoContainer.isTrimEnabled ? videoContainer.trimStart : 0;
     const current = Math.trunc(await videoContainer.currentTime()) + initOffset;
