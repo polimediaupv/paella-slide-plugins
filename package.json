@@ -1,6 +1,6 @@
 {
 	"name": "paella-slide-plugins",
-	"version": "1.7.0",
+	"version": "1.7.1",
 	"description": "A set of plugins for Paella Player to manage slides",
 	"main": "src/index.js",
 	"module": "dist/paella-slide-plugins.js",
