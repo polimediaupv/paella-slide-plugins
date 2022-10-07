@@ -1,45 +1,10 @@
 import { Events, EventLogPlugin, createElementWithHtmlText } from 'paella-core';
 
+import { checkSlides, nextSlide, previousSlide } from '../js/SlideNavigation';
+
 import "../styles/arrowSlidesNavigator.css";
 import defaultArrowLeftIcon from '../icons/arrow-left.svg';
 import defaultArrowRightIcon from '../icons/arrow-right.svg';
-
-async function next() {
-    const { videoContainer } = this.player;
-    // Convert all to untrimmed time
-    const initOffset = videoContainer.isTrimEnabled ? videoContainer.trimStart : 0;
-    const max = initOffset + Math.trunc(await videoContainer.duration());
-    const current = initOffset + Math.trunc(await videoContainer.currentTime());
-    let frame = null;
-    this.frames.some(f => {
-        if (f.time>current && f.time<max) {
-            frame = f;
-        }
-        return frame !== null;
-    });
-
-    if (frame) {
-        await this.player.videoContainer.setCurrentTime(frame.time - initOffset);
-    }
-}
-
-async function prev() {
-    const { videoContainer } = this.player;
-    const initOffset = videoContainer.isTrimEnabled ? videoContainer.trimStart : 0;
-    const current = Math.trunc(await videoContainer.currentTime()) + initOffset;
-    let frame = null;
-    this.frames.some(f => {
-        if (f.time<current) {
-            frame = f;
-        }
-        return f.time>=current;
-    });
-
-    if (frame) {
-        const seekTime = frame.time<initOffset ? initOffset : frame.time;
-        await this.player.videoContainer.setCurrentTime(seekTime - initOffset);
-    }
-}
 
 export default class ArrowSlidesNavigatorPlugin extends EventLogPlugin {
 
@@ -74,7 +39,7 @@ export default class ArrowSlidesNavigatorPlugin extends EventLogPlugin {
             `, mainContainer);
             leftButton.addEventListener("click", async evt => {
                 evt.stopPropagation();
-                await prev.apply(this);
+                await previousSlide(this.player, this.frames);
             });
 
             const rightButton = createElementWithHtmlText(`
@@ -82,7 +47,7 @@ export default class ArrowSlidesNavigatorPlugin extends EventLogPlugin {
             `, mainContainer);
             rightButton.addEventListener("click", async evt => {
                 evt.stopPropagation();
-                await next.apply(this);
+                await nextSlide(this.player, this.frames);
             });
         }
         else {
