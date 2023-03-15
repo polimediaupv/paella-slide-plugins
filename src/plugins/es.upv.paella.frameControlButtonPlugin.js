@@ -128,13 +128,4 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
             this.refreshContent = true;
         });
     }
-
-    async getDictionaries() {
-		return {
-			es: {
-				"Show video slides": "Mostrar diapositivas del vídeo",
-                "go to": "ir a"
-			}
-		}
-	}
 }
