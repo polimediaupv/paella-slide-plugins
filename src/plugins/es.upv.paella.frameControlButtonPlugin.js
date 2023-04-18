@@ -18,7 +18,7 @@ function setSelected(item, allItems) {
 
 export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
     getAriaLabel() {
-        return "Show video slides";
+        return "Show slides";
     }
 
     getDescription() {
