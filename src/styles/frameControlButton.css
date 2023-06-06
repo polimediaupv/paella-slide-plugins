@@ -50,6 +50,7 @@
 
 .frame-control-plugin-container .image-list img {
     pointer-events: none;
+    height: 100%;
 }
 
 .frame-control-plugin-container .image-list a {
