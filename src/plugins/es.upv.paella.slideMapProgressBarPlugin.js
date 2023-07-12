@@ -5,7 +5,7 @@ export default class MyProgressIndicatorPlugin extends ProgressIndicatorPlugin {
 
     async isEnabled() {
         const enabled = await super.isEnabled();
-        return enabled && this.player.videoManifest.frameList?.length > 0;
+        return enabled && this.player.frameList?.frames.length > 0;
     }
     
     async load() {
@@ -14,7 +14,7 @@ export default class MyProgressIndicatorPlugin extends ProgressIndicatorPlugin {
         this.strokeHover = this.config.markColor?.mouseHover || "#A9A9A9";
         this.strokeWidth = this.config.markWidth || 3;
         const duration = await this.player.videoContainer.duration();
-        this._frames = this.player.videoManifest.frameList.map(frame => {
+        this._frames = this.player.frameList.frames.map(frame => {
             return frame.time / duration;
         });
     }

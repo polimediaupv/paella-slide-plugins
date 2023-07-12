@@ -4,7 +4,7 @@ export function checkSlides(player) {
 }
 
 export function getFrames(player) {
-    const frames = player.videoManifest?.frameList || [];
+    const frames = player.frameList?.frames || [];
     frames.sort((a,b) => {
         return a.time - b.time;
     });
