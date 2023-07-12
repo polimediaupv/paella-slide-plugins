@@ -40,7 +40,7 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
         const arrowLeftIcon = this.player.getCustomPluginIcon(this.name, "arrowLeftIcon") || defaultArrowLeftIcon;
         const arrowRightIcon = this.player.getCustomPluginIcon(this.name, "arrowRightIcon") || defaultArrowRightIcon;
 
-        const previewContent = this.config.targetContent || "presentation";
+        const previewContent = this.player.frameList.targetContent || this.config.targetContent || "presentation";
         const content = createElementWithHtmlText('<div class="frame-control-plugin-container"></div>');
         const imageContainer = createElementWithHtmlText('<div class="image-list"></div>',content);
         const leftButton = createElementWithHtmlText(`<button class="btn-left"><i class="button-icon">${ arrowLeftIcon }</i></button>`,content);
