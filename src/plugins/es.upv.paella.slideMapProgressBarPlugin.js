@@ -1,7 +1,15 @@
 
 import { ProgressIndicatorPlugin } from 'paella-core';
+import SlidePluginsModule from './SlidePluginsModule';
 
 export default class MyProgressIndicatorPlugin extends ProgressIndicatorPlugin {
+    getPluginModuleInstance() {
+        return SlidePluginsModule.Get();
+    }
+
+    get name() {
+        return super.name || "es.upv.paella.slideMapProgressBarPlugin";
+    }
 
     async isEnabled() {
         const enabled = await super.isEnabled();

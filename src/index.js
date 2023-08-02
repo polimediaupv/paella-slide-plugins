@@ -11,6 +11,39 @@ export default function getSlidePluginsContext() {
     return require.context("./plugins", true, /\.js/)
 }
 
+export const slidePlugins = [
+    {
+        plugin: ArrowSlides,
+        config: {
+            enabled: false
+        }
+    },
+    {
+        plugin: FrameControlButton,
+        config: {
+            enabled: false
+        }
+    },
+    {
+        plugin: SlideMapProgressBar,
+        config: {
+            enabled: false
+        }
+    },
+    {
+        plugin: NextSlideNavigatorButton,
+        config: {
+            enabled: false
+        }
+    },
+    {
+        plugin: PrevSlideNavigatorButton,
+        config: {
+            enabled: false
+        }
+    }
+];
+
 export const ArrowSlidesPlugin = ArrowSlides
 export const FrameControlButtonPlugin = FrameControlButton
 export const SlideMapProgressBarPlugin = SlideMapProgressBar

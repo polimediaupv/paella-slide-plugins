@@ -1,9 +1,17 @@
 import { CanvasButtonPlugin } from "paella-core";
 import { checkSlides, nextSlide } from "../js/SlideNavigation";
+import SlidePluginsModule from "./SlidePluginsModule";
 
 import DefaultArrowRightIcon from '../icons/arrow-right.svg';
 
 export default class NextSlideNavigatorButton extends CanvasButtonPlugin {
+    getPluginModuleInstance() {
+        return SlidePluginsModule.Get();
+    }
+
+    get name() {
+        return super.name || "es.upv.paella.nextSlideNavigatorButton";
+    }
 
     getAriaLabel() {
         return this.getDescription();

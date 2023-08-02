@@ -6,7 +6,9 @@ A set of plugins to handle slides for Paella Player
 
 **Step 1:** Import the plugin context and add it to the Paella Player initialization parameters:
 
-```javascript
+Using plugin context API:
+
+```js
 ...
 import getSlidePluginsContext from 'paella-slide-plugins';
 
@@ -17,6 +19,28 @@ let paella = new Paella('player-container', {
 });
 ...
 ```
+
+Using explicit plugin import API (paella-slide-plugins >= 1.41)
+
+```js
+import {
+    slidePlugins, // All plugins
+    FullscreenButtonPlugin      // Independent plugin
+} from 'paella-slide-plugins';
+
+let paella = new Paella('player-container', {
+    plugins: [
+        ...slidePlugins,    // All plugins
+        { // One plugin
+            plugin: FullscreenButtonPlugin,
+            config: {
+                enabled: true
+            }
+        }
+    ]
+});
+```
+
 
 **Step 2:** Configure the plugins you want to use in the paella player configuration.
 

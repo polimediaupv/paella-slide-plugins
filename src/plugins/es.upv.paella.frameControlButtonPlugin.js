@@ -5,6 +5,7 @@ import {
     bindEvent,
     utils
 } from 'paella-core';
+import SlidePluginsModule from './SlidePluginsModule';
 
 import defaultPhotoIcon from '../icons/photo.svg';
 import defaultArrowLeftIcon from '../icons/arrow-left.svg';
@@ -17,6 +18,14 @@ function setSelected(item, allItems) {
 }
 
 export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
+    getPluginModuleInstance() {
+        return SlidePluginsModule.Get();
+    }
+
+    get name() {
+        return super.name || "es.upv.paella.frameControlButtonPlugin";
+    }
+
     getAriaLabel() {
         return "Show slides";
     }

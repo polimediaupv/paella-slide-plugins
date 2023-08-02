@@ -2,11 +2,20 @@ import { Events, EventLogPlugin, createElementWithHtmlText } from 'paella-core';
 
 import { checkSlides, getFrames, nextSlide, previousSlide } from '../js/SlideNavigation';
 
+import SlidePluginsModule from './SlidePluginsModule';
+
 import "../styles/arrowSlidesNavigator.css";
 import defaultArrowLeftIcon from '../icons/arrow-left.svg';
 import defaultArrowRightIcon from '../icons/arrow-right.svg';
 
 export default class ArrowSlidesNavigatorPlugin extends EventLogPlugin {
+    getPluginModuleInstance() {
+        return SlidePluginsModule.Get();
+    }
+
+    get name() {
+        return super.name || "es.upv.paella.arrowSlidesNavigator";
+    }
 
     get events() {
         return [
