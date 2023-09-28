@@ -45,6 +45,20 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
         return enabled && this.frames?.length;
     }
 
+    async action() {
+        await super.action();
+
+        const currentTime = await this.player.videoContainer.currentTime();
+        let currentButton = null;
+        this.frameElements.some(item => {
+            currentButton = item;
+            return item.__data.time > currentTime;
+        })
+        if (currentButton) {
+            currentButton.focus();
+        }
+    }
+
     async getContent() {
         const arrowLeftIcon = this.player.getCustomPluginIcon(this.name, "arrowLeftIcon") || defaultArrowLeftIcon;
         const arrowRightIcon = this.player.getCustomPluginIcon(this.name, "arrowRightIcon") || defaultArrowRightIcon;
