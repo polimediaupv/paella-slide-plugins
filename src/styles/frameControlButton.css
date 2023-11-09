@@ -1,14 +1,13 @@
 
 .frame-control-plugin-container {
     position: relative;
-    height: 100px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
 }
 
 .frame-control-plugin-container .btn-left {
-    position: absolute;
-    left: 0px;
-    top: -10px;
-    bottom: -10px;
     background: linear-gradient(
         90deg
         , rgba(65,65,65,1) 0%, rgba(0,0,0,0) 100%);
@@ -18,54 +17,24 @@
 .frame-control-plugin-container .image-list {
     display: flex;
     flex-wrap: nowrap;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    padding-left: 30px;
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
 }
 
 .frame-control-plugin-container .btn-right {
-    position: absolute;
-    right: 0px;
-    top: -11px;
-    bottom: -10px;
     background: linear-gradient(
         270deg
         , rgba(65,65,65,1) 0%, rgba(0,0,0,0) 100%);
     border-radius: 6px;
 }
 
-.frame-control-plugin-container .image-list a {
-    margin: 3px;
-    min-width: 160px;
-}
-
-.frame-control-plugin-container .image-list a:last-child {
-    border-right: 110px solid transparent;
-}
-
-.frame-control-plugin-container .image-list img {
-    pointer-events: none;
-    height: 100%;
-}
-
-.frame-control-plugin-container .image-list a {
-    opacity: 0.5;
-    overflow: hidden;
-}
-
-.frame-control-plugin-container .image-list a:hover {
-    opacity: 1;
-    cursor: pointer;
-}
-
 .frame-control-plugin-container button {
     background-color: transparent;
     border: 0px;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-snap-align: start;
 }
 
 .frame-control-plugin-container .button-icon {
@@ -77,12 +46,12 @@
     fill: white;
 }
 
-.frame-control-plugin-container .image-list a.selected {
+.frame-control-plugin-container .image-list button.selected {
     border: 2px solid red;
     opacity: 0.8;
 }
 
-.frame-control-plugin-container .image-list a.selected:hover {
+.frame-control-plugin-container .image-list button.selected:hover {
     border: 2px solid red;
     opacity: 1;
 }
