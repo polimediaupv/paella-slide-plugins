@@ -112,7 +112,7 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
                 const nextFrame = this.frames[i + 1];
                 return (nextFrame?.time>=start || frameData.time>=start) && frameData.time<=end;
             })
-            .map(frameData => {    
+            .map(frameData => {
                 const description = `${ this.player.translate(`go to`) } ${ getTime(frameData.time) }`;
                 const frameElement = createElementWithHtmlText(`
                 <button id="frame_${frameData.id}" aria-label="${ description }" title="${ description }"><img src="${ frameData.thumb }" alt="${ frameData.id }"/></button>
@@ -142,7 +142,7 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
                 return frameElement;
             });
 
-        const displacement = () => imageContainer.offsetWidth * 20 / 100;
+        const displacement = () => this.frameElements && this.frameElements[0] ? this.frameElements[0].offsetWidth : 0;
         leftButton.addEventListener('click', () => {
             imageContainer.scrollLeft -= displacement();
         });
