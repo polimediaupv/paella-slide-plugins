@@ -13,9 +13,9 @@ export default class MyProgressIndicatorPlugin extends ProgressIndicatorPlugin {
 
     async isEnabled() {
         const enabled = await super.isEnabled();
-        return enabled && this.player.frameList?.frames.length > 0;
+        return enabled && this.player.frameList?.frames?.length > 0;
     }
-    
+
     async load() {
         this._drawBackground = this.config.drawBackground || false;
         this.strokeOut = this.config.markColor?.mouseOut || "#0A0A0A";
