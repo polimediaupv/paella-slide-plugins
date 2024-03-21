@@ -44,6 +44,8 @@ export const slidePlugins = [
     }
 ];
 
+export const allPlugins = slidePlugins;
+
 export const ArrowSlidesPlugin = ArrowSlides
 export const FrameControlButtonPlugin = FrameControlButton
 export const SlideMapProgressBarPlugin = SlideMapProgressBar
