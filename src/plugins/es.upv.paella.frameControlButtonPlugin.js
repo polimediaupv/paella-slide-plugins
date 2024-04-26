@@ -80,10 +80,12 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
 
         const previewContent = this.player.frameList.targetContent || this.config.targetContent || "presentation";
         const content = createElementWithHtmlText('<div class="frame-control-plugin-container"></div>');
+
+        const tabindex = this.tabIndex;
         
-        const leftButton = createElementWithHtmlText(`<button class="btn-left"><i class="button-icon">${ arrowLeftIcon }</i></button>`,content);
+        const leftButton = createElementWithHtmlText(`<button class="btn-left"><i class="button-icon" tabindex="${tabindex}">${ arrowLeftIcon }</i></button>`,content);
         const imageContainer = createElementWithHtmlText('<div class="image-list"></div>',content);
-        const rightButton = createElementWithHtmlText(`<button class="btn-right"><i class="button-icon">${ arrowRightIcon }</i></button>`,content);
+        const rightButton = createElementWithHtmlText(`<button class="btn-right"><i class="button-icon" tabindex="${tabindex}">${ arrowRightIcon }</i></button>`,content);
         const { videoContainer } = this.player;
         const duration = await videoContainer.duration();
 
@@ -107,6 +109,7 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
             return utils.secondsToTime(t < 0 ? 0 : t);
         }
 
+        
         this.frameElements = this.frames
             .filter((frameData,i) => {
                 const nextFrame = this.frames[i + 1];
@@ -115,7 +118,7 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
             .map(frameData => {
                 const description = `${ this.player.translate(`go to`) } ${ getTime(frameData.time) }`;
                 const frameElement = createElementWithHtmlText(`
-                <button id="frame_${frameData.id}" aria-label="${ description }" title="${ description }"><img src="${ frameData.thumb }" alt="${ frameData.id }"/></button>
+                <button id="frame_${frameData.id}" aria-label="${ description }" title="${ description }" tabindex="${tabindex}"><img src="${ frameData.thumb }" alt="${ frameData.id }"/></button>
                 `, imageContainer);
                 frameElement.__data = frameData;
                 frameElement.addEventListener("click", async evt => {

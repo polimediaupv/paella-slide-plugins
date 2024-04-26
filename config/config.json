@@ -70,6 +70,7 @@
             "enabled": true,
             "side": "right",
             "order": 2,
+            "tabIndex": 2,
             "targetContent": "presentation"
         },
 
