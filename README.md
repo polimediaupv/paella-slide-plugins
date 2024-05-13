@@ -124,27 +124,6 @@ The video where the arrow buttons are placed is the one whose `content` attribut
     * `arrowRightIcon`: arrow right, in slides panel.
 
 
-### Slide Map Progress Bar Plugin
-
-Displays a mark in the progress indicator where there is a slide. It is possible to customize the color of the marks when the mouse is over the bar or outside the bar, and the width of the marks. You can also customize whether the marks are drawn above the progress indicator or below it.
-
-```json
-{
-    "es.upv.paella.slideMapProgressBarPlugin": {
-        "enabled": true,
-        "markColor": {
-            "mouseOut": "#0A0A0A",
-            "mouseHover": "#A9A9A9"
-        },
-        "markWidth": 3,
-        "drawBackground": true
-    },
-    ...
-}
-```
-
-**Exported as** `SlideMapProgressBarPlugin`
-
 ### Next Slide Navigator Button
 
 This is a video canvas button that allows you to navigate to the next frame. It is intended to replace, together with `Previous Slide Navigator Button`, the `Arrow Slide Navigator` plugin, when we want to place these buttons in the button area of the video canvas. Therefore, it is not consistent to activate `Next Slide Navigator Button` and `Previous Slide Navigator Button` if `Arrow Slide Navigator` is also activated.

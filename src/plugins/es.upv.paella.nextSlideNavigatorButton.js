@@ -2,7 +2,8 @@ import { CanvasButtonPlugin } from "paella-core";
 import { checkSlides, nextSlide } from "../js/SlideNavigation";
 import SlidePluginsModule from "./SlidePluginsModule";
 
-import DefaultArrowRightIcon from '../icons/arrow-right.svg';
+import { ArrowRightIcon as DefaultArrowRightIcon } from '../icons/arrow-right.js';
+
 
 export default class NextSlideNavigatorButton extends CanvasButtonPlugin {
     getPluginModuleInstance() {

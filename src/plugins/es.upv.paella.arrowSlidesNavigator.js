@@ -4,9 +4,9 @@ import { checkSlides, getFrames, nextSlide, previousSlide } from '../js/SlideNav
 
 import SlidePluginsModule from './SlidePluginsModule';
 
-import "../styles/arrowSlidesNavigator.css";
-import defaultArrowLeftIcon from '../icons/arrow-left.svg';
-import defaultArrowRightIcon from '../icons/arrow-right.svg';
+import "../css/arrowSlidesNavigator.css";
+import { ArrowLeftIcon as defaultArrowLeftIcon } from '../icons/arrow-left.js';
+import { ArrowRightIcon as defaultArrowRightIcon } from '../icons/arrow-right.js';
 
 export default class ArrowSlidesNavigatorPlugin extends EventLogPlugin {
     getPluginModuleInstance() {

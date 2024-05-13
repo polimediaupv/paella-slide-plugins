@@ -8,9 +8,9 @@ import {
 import SlidePluginsModule from './SlidePluginsModule';
 
 import defaultPhotoIcon from '../icons/photo.svg';
-import defaultArrowLeftIcon from '../icons/arrow-left.svg';
-import defaultArrowRightIcon from '../icons/arrow-right.svg';
-import '../styles/frameControlButton.css';
+import { ArrowLeftIcon as defaultArrowLeftIcon } from '../icons/arrow-left.js';
+import { ArrowRightIcon as defaultArrowRightIcon } from '../icons/arrow-right.js';
+import '../css/frameControlButton.css';
 
 function setSelected(item, allItems) {
     allItems?.forEach(e => e.classList.remove('selected'));
