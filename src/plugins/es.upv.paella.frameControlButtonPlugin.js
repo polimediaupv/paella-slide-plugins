@@ -7,7 +7,7 @@ import {
 } from 'paella-core';
 import SlidePluginsModule from './SlidePluginsModule';
 
-import defaultPhotoIcon from '../icons/photo.svg';
+import { PhotoIcon as defaultPhotoIcon } from '../icons/photo.js';
 import { ArrowLeftIcon as defaultArrowLeftIcon } from '../icons/arrow-left.js';
 import { ArrowRightIcon as defaultArrowRightIcon } from '../icons/arrow-right.js';
 import '../css/frameControlButton.css';
