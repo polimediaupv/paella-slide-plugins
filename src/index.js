@@ -6,10 +6,6 @@ import PrevSlideNavigatorButton from './plugins/es.upv.paella.prevSlideNavigator
 
 import { nextSlide, getFrames, previousSlide, checkSlides } from './js/SlideNavigation';
 
-export default function getSlidePluginsContext() {
-    return require.context("./plugins", true, /\.js/)
-}
-
 export const slidePlugins = [
     {
         plugin: ArrowSlides,
