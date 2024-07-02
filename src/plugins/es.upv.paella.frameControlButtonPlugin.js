@@ -181,5 +181,11 @@ export default class FrameControlButtonPlugin extends PopUpButtonPlugin {
         bindEvent(this.player, Events.TRIMMING_CHANGED, (evt) => {
             this.refreshContent = true;
         });
+
+        bindEvent(this.player, Events.HIDE_POPUP, (evt) => {
+            if (evt.plugin === this) {
+                setTimeout(() => this.button?.focus(), 100);
+            }
+        });
     }
 }
