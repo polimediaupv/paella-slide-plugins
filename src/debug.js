@@ -1,4 +1,4 @@
-import { Paella } from 'paella-core';
+import { Paella, utils } from 'paella-core';
 import getSlidePluginsContext from './index';
 
 import slideIcon from './icons/slidesIcon.svg';
@@ -10,6 +10,7 @@ const initParams = {
 };
 
 let paella = new Paella('player-container', initParams);
+await utils.loadStyle("config/custom.css");
 
 paella.loadManifest()
 	.then(() => {

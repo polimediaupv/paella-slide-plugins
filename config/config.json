@@ -92,8 +92,9 @@
                 "mouseOut": "#0A0A0A",
                 "mouseHover": "#A9A9A9"
             },
-            "markWidth": 3,
-            "drawBackground": true
+            "markStyle": "bar",
+            "markWidth": 4,
+            "drawBackground": false
         },
 
         "es.upv.paella.nextSlideNavigatorButton": {

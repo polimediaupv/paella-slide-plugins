@@ -1,0 +1,15 @@
+:root {
+    --progress-bar-height: 10px;
+}
+
+.progress-indicator {
+    height: 30px;
+}
+
+.progress-indicator-container .progress-indicator-content {
+    height: var(--progress-bar-height);
+}
+
+.progress-indicator-container .progress-indicator-remaining {
+    height: var(--progress-bar-height);
+}
