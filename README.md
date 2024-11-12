@@ -137,11 +137,18 @@ Displays a mark in the progress indicator where there is a slide. It is possible
             "mouseHover": "#A9A9A9"
         },
         "markWidth": 3,
+        "markStyle": "bar",
         "drawBackground": true
     },
     ...
 }
 ```
+
+- markColor:
+    * mouseOut: The color of the marks when the mouse is not over the playback bar
+    * mouseHover: The color of the marks when the mouse is over the playback bar
+- markStyle: style of marks (bar, diamond, dot)
+- markWidth: size of the marks
 
 **Exported as** `SlideMapProgressBarPlugin`
 
