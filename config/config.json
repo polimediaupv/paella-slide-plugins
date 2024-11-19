@@ -94,7 +94,8 @@
             },
             "markStyle": "bar",
             "markWidth": 4,
-            "drawBackground": false
+            "drawBackground": false,
+            "drawFirstMark": false 
         },
 
         "es.upv.paella.nextSlideNavigatorButton": {

@@ -3,13 +3,16 @@ import { ProgressIndicatorPlugin } from 'paella-core';
 import SlidePluginsModule from './SlidePluginsModule';
 
 const drawFunctions = {
-    bar: function(context, width, height, isHover) {
+    bar: function(context, width, height, isHover, drawFirstMark) {
         const barHeight = document.querySelector(`.progress-indicator-container .progress-indicator-content`)?.offsetHeight ?? height;
         const top = (height - barHeight) / 2;
     
         context.strokeStyle = isHover ? this.strokeHover : this.strokeOut;
         context.lineWidth = this.strokeWidth;
-        this._frames.forEach(x => {
+        this._frames.forEach((x,i) => {
+            if (!drawFirstMark && i === 0) {
+                return;
+            }
             const left = x * width;
             context.beginPath();
             context.moveTo(left, top);
@@ -18,13 +21,16 @@ const drawFunctions = {
         });
     },
 
-    dot: function(context, width, height, isHover) {
+    dot: function(context, width, height, isHover, drawFirstMark) {
         const barHeight = document.querySelector(`.progress-indicator-container .progress-indicator-content`)?.offsetHeight ?? height;
         const top = (height - barHeight) / 2;
     
         context.fillStyle = isHover ? this.strokeHover : this.strokeOut;
         context.lineWidth = this.strokeWidth;
-        this._frames.forEach(x => {
+        this._frames.forEach((x, i) => {
+            if (!drawFirstMark && i === 0) {
+                return;
+            }
             const left = x * width;
             context.beginPath();
             context.arc(left, top + barHeight / 2, this.strokeWidth, 0, 2 * Math.PI);
@@ -32,13 +38,16 @@ const drawFunctions = {
         });
     },
 
-    diamond: function(context, width, height, isHover) {
+    diamond: function(context, width, height, isHover, drawFirstMark) {
         const barHeight = document.querySelector(`.progress-indicator-container .progress-indicator-content`)?.offsetHeight ?? height;
         const top = (height - barHeight) / 2;
     
         context.fillStyle = isHover ? this.strokeHover : this.strokeOut;
         context.lineWidth = this.strokeWidth;
-        this._frames.forEach(x => {
+        this._frames.forEach((x,i) => {
+            if (!drawFirstMark && i === 0) {
+                return;
+            }
             const left = x * width;
             context.beginPath();
             context.moveTo(left, top + barHeight / 2);
@@ -72,6 +81,7 @@ export default class MyProgressIndicatorPlugin extends ProgressIndicatorPlugin {
         this.strokeHover = this.config.markColor?.mouseHover || "#A9A9A9";
         this.strokeWidth = this.config.markWidth || 4;
         this.markStyle = this.config.markStyle || "bar";
+        this.drawFirstMark = this.config.drawFirstMark !== undefined ? this.config.drawFirstMark : true;
         const duration = await this.player.videoContainer.duration();
         this._frames = this.player.frameList.frames.map(frame => {
             return frame.time / duration;
@@ -81,7 +91,7 @@ export default class MyProgressIndicatorPlugin extends ProgressIndicatorPlugin {
     drawMark(context, width, height, isHover) {
         const fn = drawFunctions[this.markStyle];
         if (fn) {
-            fn.apply(this, [context, width, height, isHover]);
+            fn.apply(this, [context, width, height, isHover, this.drawFirstMark]);
         }
         else if (!fn) {
             console.error(`Invalid mark style: ${this.markStyle}. Valid options are ` + Object.keys(drawFunctions).join(", "));
