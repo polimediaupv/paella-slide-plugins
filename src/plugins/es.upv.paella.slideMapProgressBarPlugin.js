@@ -3,59 +3,58 @@ import { ProgressIndicatorPlugin } from 'paella-core';
 import SlidePluginsModule from './SlidePluginsModule';
 
 const drawFunctions = {
-    bar: function(context, width, height, isHover, drawFirstMark) {
-        const barHeight = document.querySelector(`.progress-indicator-container .progress-indicator-content`)?.offsetHeight ?? height;
+    bar: function(context, width, height, isHover, scale, drawFirstMark) {
+        const barHeight = (document.querySelector(`.progress-indicator-container .progress-indicator-content`)?.offsetHeight ?? height);
         const top = (height - barHeight) / 2;
     
         context.strokeStyle = isHover ? this.strokeHover : this.strokeOut;
-        context.lineWidth = this.strokeWidth;
+        context.lineWidth = this.strokeWidth * scale;
         this._frames.forEach((x,i) => {
             if (!drawFirstMark && i === 0) {
                 return;
             }
             const left = x * width;
             context.beginPath();
-            context.moveTo(left, top);
-            context.lineTo(left, top + barHeight);
+            context.moveTo(left * scale, top * scale);
+            context.lineTo(left * scale, (top + barHeight) * scale);
             context.stroke();
         });
     },
 
-    dot: function(context, width, height, isHover, drawFirstMark) {
+    dot: function(context, width, height, isHover, scale, drawFirstMark) {
         const barHeight = document.querySelector(`.progress-indicator-container .progress-indicator-content`)?.offsetHeight ?? height;
         const top = (height - barHeight) / 2;
     
         context.fillStyle = isHover ? this.strokeHover : this.strokeOut;
-        context.lineWidth = this.strokeWidth;
+        context.lineWidth = this.strokeWidth * scale;
         this._frames.forEach((x, i) => {
             if (!drawFirstMark && i === 0) {
                 return;
             }
             const left = x * width;
             context.beginPath();
-            context.arc(left, top + barHeight / 2, this.strokeWidth, 0, 2 * Math.PI);
+            context.arc(left * scale, (top + barHeight / 2) * scale, this.strokeWidth * scale, 0, 2 * Math.PI);
             context.fill();
         });
     },
 
-    diamond: function(context, width, height, isHover, drawFirstMark) {
+    diamond: function(context, width, height, isHover, scale, drawFirstMark) {
         const barHeight = document.querySelector(`.progress-indicator-container .progress-indicator-content`)?.offsetHeight ?? height;
         const top = (height - barHeight) / 2;
     
         context.fillStyle = isHover ? this.strokeHover : this.strokeOut;
-        context.lineWidth = this.strokeWidth;
+        context.lineWidth = this.strokeWidth * scale;
         this._frames.forEach((x,i) => {
             if (!drawFirstMark && i === 0) {
                 return;
             }
             const left = x * width;
             context.beginPath();
-            context.moveTo(left, top + barHeight / 2);
-            context.lineTo(left + this.strokeWidth, top);
-            context.lineTo(left + this.strokeWidth * 2, top + barHeight / 2);
-            context.lineTo(left + this.strokeWidth, top + barHeight);
+            context.moveTo(left * scale, (top + barHeight / 2) * scale);
+            context.lineTo((left + this.strokeWidth) * scale, top * scale);
+            context.lineTo((left + this.strokeWidth * 2) * scale, (top + barHeight / 2) * scale);
+            context.lineTo((left + this.strokeWidth) * scale, (top + barHeight) * scale);
             context.closePath();
-            //context.arc(left, top + barHeight / 2, this.strokeWidth, 0, 2 * Math.PI);
             context.fill();
         });
     }
@@ -88,73 +87,25 @@ export default class MyProgressIndicatorPlugin extends ProgressIndicatorPlugin {
         });
     }
 
-    drawMark(context, width, height, isHover) {
+    drawMark(context, width, height, isHover, scale) {
         const fn = drawFunctions[this.markStyle];
         if (fn) {
-            fn.apply(this, [context, width, height, isHover, this.drawFirstMark]);
+            fn.apply(this, [context, width, height, isHover, scale, this.drawFirstMark]);
         }
         else if (!fn) {
             console.error(`Invalid mark style: ${this.markStyle}. Valid options are ` + Object.keys(drawFunctions).join(", "));
         }
     }
 
-    drawForeground(context, width, height, isHover) {
+    drawForeground(context, width, height, isHover, scale) {
         if (!this._drawBackground) {
-            this.drawMark(context, width, height, isHover);
+            this.drawMark(context, width, height, isHover, scale);
         }
     }
 
-    drawBackground(context, width, height, isHover) {
+    drawBackground(context, width, height, isHover, scale) {
         if (this._drawBackground) {
-            this.drawMark(context, width, height, isHover);
+            this.drawMark(context, width, height, isHover, scale);
         }
-    }
-
-    drawBar(context, width, height, isHover) {
-        const barHeight = document.querySelector(`.progress-indicator-container .progress-indicator-content`)?.offsetHeight ?? height;
-        const top = (height - barHeight) / 2;
-    
-        context.strokeStyle = isHover ? this.strokeHover : this.strokeOut;
-        context.lineWidth = this.strokeWidth;
-        this._frames.forEach(x => {
-            const left = x * width;
-            context.beginPath();
-            context.moveTo(left, top);
-            context.lineTo(left, top + barHeight);
-            context.stroke();
-        });
-    }
-
-    drawDot(context, width, height, isHover) {
-        const barHeight = document.querySelector(`.progress-indicator-container .progress-indicator-content`)?.offsetHeight ?? height;
-        const top = (height - barHeight) / 2;
-    
-        context.fillStyle = isHover ? this.strokeHover : this.strokeOut;
-        context.lineWidth = this.strokeWidth;
-        this._frames.forEach(x => {
-            const left = x * width;
-            context.beginPath();
-            context.arc(left, top + barHeight / 2, this.strokeWidth, 0, 2 * Math.PI);
-            context.fill();
-        });
-    }
-
-    drawDiamond(context, width, height, isHover) {
-        const barHeight = document.querySelector(`.progress-indicator-container .progress-indicator-content`)?.offsetHeight ?? height;
-        const top = (height - barHeight) / 2;
-    
-        context.fillStyle = isHover ? this.strokeHover : this.strokeOut;
-        context.lineWidth = this.strokeWidth;
-        this._frames.forEach(x => {
-            const left = x * width;
-            context.beginPath();
-            context.moveTo(left, top + barHeight / 2);
-            context.lineTo(left + this.strokeWidth, top);
-            context.lineTo(left + this.strokeWidth * 2, top + barHeight / 2);
-            context.lineTo(left + this.strokeWidth, top + barHeight);
-            context.closePath();
-            //context.arc(left, top + barHeight / 2, this.strokeWidth, 0, 2 * Math.PI);
-            context.fill();
-        });
     }
 }
