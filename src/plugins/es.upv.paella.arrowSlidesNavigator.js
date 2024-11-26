@@ -45,6 +45,13 @@ export default class ArrowSlidesNavigatorPlugin extends EventLogPlugin {
             leftButton.addEventListener("click", async evt => {
                 evt.stopPropagation();
                 await previousSlide(this.player);
+                // We remove the focus on the button click event, because otherwise the user
+                // interface will never be hidden.
+                // We use pageX and pageY to differentiate the origin of the click: if it was produced
+                // by a keyboard action, then we do not remove the focus so as not to hinder accessibility.
+                if (evt.pageX !== 0 && evt.pageY !== 0) {
+                    document.activeElement.blur();
+                }
             });
 
             const rightButton = createElementWithHtmlText(`
@@ -53,6 +60,13 @@ export default class ArrowSlidesNavigatorPlugin extends EventLogPlugin {
             rightButton.addEventListener("click", async evt => {
                 evt.stopPropagation();
                 await nextSlide(this.player);
+                // We remove the focus on the button click event, because otherwise the user
+                // interface will never be hidden.
+                // We use pageX and pageY to differentiate the origin of the click: if it was produced
+                // by a keyboard action, then we do not remove the focus so as not to hinder accessibility.
+                if (evt.pageX !== 0 && evt.pageY !== 0) {
+                    document.activeElement.blur();
+                }
             });
         }
         else {
